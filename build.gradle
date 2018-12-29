@@ -5,6 +5,14 @@
  * For more details take a look at the Java Quickstart chapter in the Gradle
  * user guide available at https://docs.gradle.org/5.0/userguide/tutorial_java_projects.html
  */
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
+    }
+}
 
 plugins {
     // Apply the java plugin to add support for Java
@@ -14,9 +22,22 @@ plugins {
     id 'application'
 }
 
+apply plugin: 'com.github.johnrengelman.shadow'
+
+
+group = 'com.mandelag'
+version = '1.0-SNAPSHOT'
+
+description = """stateless-word-count"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
+    mavenCentral()
+    mavenLocal()
     jcenter()
 }
 
@@ -32,7 +53,10 @@ dependencies {
     compile group: 'com.typesafe.akka', name: 'akka-http-jackson_2.12', version: '10.1.6'
 
     // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'
+    // testImplementation 'junit:junit:4.12'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version:'5.3.1'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version:'5.3.1'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version:'5.3.1'
 }
 
 run { // https://discuss.gradle.org/t/why-doesnt-system-in-read-block-when-im-using-gradle/3308 (Adam Murdoch)
