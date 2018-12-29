@@ -2,6 +2,7 @@ package com.mandelag.app;
 
 import akka.NotUsed;
 import akka.actor.ActorSystem;
+import akka.actor.Terminated;
 import akka.http.javadsl.ConnectHttp;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.ServerBinding;
@@ -14,7 +15,7 @@ import akka.stream.javadsl.Flow;
 import java.io.IOException;
 import java.util.concurrent.CompletionStage;
 
-public class Main {
+public class App {
   public static void main(String[] args) throws IOException {
     ActorSystem backendSystem = ActorSystem.create("word-counter");
     ActorSystem httpSystem = ActorSystem.create("http-server");

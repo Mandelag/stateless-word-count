@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.Map;
 
 public class WordCountTest {
+
   @Test
   public void testWordCounter() {
     String text = "Nama saya Keenan Mandela Gebze. Sekarang " +
