@@ -22,8 +22,8 @@ public class WordCountRoutes extends AllDirectives {
   }
 
   public Route wordCount() {
-    Unmarshaller<HttpEntity, String> umarshaller = Unmarshaller.entityToString();
-    return entity(umarshaller, entity ->
+    Unmarshaller<HttpEntity, String> unmarshaller = Unmarshaller.entityToString();
+    return entity(unmarshaller, entity ->
         Directives.onSuccess(CompletableFuture.supplyAsync(() -> processor.apply(entity)),
             extracted -> complete(extracted.toString())));
   }
