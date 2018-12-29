@@ -25,7 +25,7 @@ public class App {
     Flow<HttpRequest, HttpResponse, NotUsed> handler = new WordCountRoutes().getRoute().flow(backendSystem, ActorMaterializer.create(backendSystem));
 
     Http http = Http.get(httpSystem);
-    CompletionStage<ServerBinding> bindingFuture = http.bindAndHandle(handler, ConnectHttp.toHost("0.0.0.0", 8080), materializer);
+    CompletionStage<ServerBinding> bindingFuture = http.bindAndHandle(handler, ConnectHttp.toHost("0.0.0.0", 8090), materializer);
 
     System.in.read();
 
