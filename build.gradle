@@ -29,6 +29,7 @@ dependencies {
     testCompile group: 'com.typesafe.akka', name: 'akka-http-testkit_2.12', version: '10.1.6'
     compile group: 'com.typesafe.akka', name: 'akka-stream_2.12', version: '2.5.19'
     testCompile group: 'com.typesafe.akka', name: 'akka-stream-testkit_2.12', version: '2.5.19'
+    compile group: 'com.typesafe.akka', name: 'akka-http-jackson_2.12', version: '10.1.6'
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'

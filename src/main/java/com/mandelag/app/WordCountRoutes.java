@@ -1,12 +1,15 @@
 package com.mandelag.app;
 
 
+import akka.http.javadsl.marshallers.jackson.Jackson;
 import akka.http.javadsl.model.HttpEntity;
+import akka.http.javadsl.model.StatusCodes;
 import akka.http.javadsl.server.AllDirectives;
 import akka.http.javadsl.server.Directives;
 import akka.http.javadsl.server.Route;
 import akka.http.javadsl.unmarshalling.Unmarshaller;
 
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class WordCountRoutes extends AllDirectives {
@@ -25,6 +28,6 @@ public class WordCountRoutes extends AllDirectives {
     Unmarshaller<HttpEntity, String> unmarshaller = Unmarshaller.entityToString();
     return entity(unmarshaller, entity ->
         Directives.onSuccess(CompletableFuture.supplyAsync(() -> processor.apply(entity)),
-            extracted -> complete(extracted.toString())));
+            extracted -> complete(StatusCodes.MULTI_STATUS, extracted, Jackson.<Map>marshaller())));
   }
 }
