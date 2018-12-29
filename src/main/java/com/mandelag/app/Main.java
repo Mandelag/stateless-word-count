@@ -16,12 +16,12 @@ import java.util.concurrent.CompletionStage;
 
 public class Main {
   public static void main(String[] args) throws IOException {
-    ActorSystem logicSystem = ActorSystem.create("word-counter");
+    ActorSystem backendSystem = ActorSystem.create("word-counter");
     ActorSystem httpSystem = ActorSystem.create("http-server");
 
     Materializer materializer = ActorMaterializer.create(httpSystem);
 
-    Flow<HttpRequest, HttpResponse, NotUsed> handler = new WordCountRoutes().getRoute().flow(logicSystem, ActorMaterializer.create(logicSystem));
+    Flow<HttpRequest, HttpResponse, NotUsed> handler = new WordCountRoutes().getRoute().flow(backendSystem, ActorMaterializer.create(backendSystem));
 
     Http http = Http.get(httpSystem);
     CompletionStage<ServerBinding> bindingFuture = http.bindAndHandle(handler, ConnectHttp.toHost("0.0.0.0", 8080), materializer);
@@ -31,7 +31,7 @@ public class Main {
     bindingFuture
         .thenCompose(ServerBinding::unbind)
         .thenAccept(unbound -> {
-          logicSystem.terminate();
+          backendSystem.terminate();
           httpSystem.terminate();
         });
   }
