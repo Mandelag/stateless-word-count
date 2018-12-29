@@ -63,5 +63,12 @@ run { // https://discuss.gradle.org/t/why-doesnt-system-in-read-block-when-im-us
     standardInput = System.in
 }
 
+// https://github.com/akka/akka/issues/24248
+shadowJar {
+    append('reference.conf')
+    append('akka-http-version.conf')
+    append('version.conf')
+}
+
 // Define the main class for the application
 mainClassName = 'com.mandelag.app.App'
