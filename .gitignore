@@ -3,3 +3,10 @@
 
 # Ignore Gradle build output directory
 build
+
+.idea/
+gradle/
+gradlew
+gradlew.bat
+settings.gradle
+target/
