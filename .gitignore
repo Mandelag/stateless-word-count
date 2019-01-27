@@ -11,3 +11,7 @@ gradlew.bat
 settings.gradle
 target/
 out/
+.classpath
+.project
+.settings/
+bin/
