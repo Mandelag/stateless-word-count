@@ -11,7 +11,7 @@ public class TextAnalyzerTest {
     String text = "Nama saya Keenan Mandela Gebze. Sekarang " +
         "saya sedang belajar Akka. Toolkit keren dan unique!" +
         "Saya belajar ini karena saya ingin belajar distributed computing.";
-    Map<String, Integer> result = TextAnalyzer.countWords(text);
+    Map<String, Integer> result = JavaTextAnalyzer.countWords(text);
     System.out.println(result);
     assertEquals(2, 1 + 1);
   }

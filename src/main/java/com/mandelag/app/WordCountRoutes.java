@@ -8,6 +8,7 @@ import akka.http.javadsl.server.AllDirectives;
 import akka.http.javadsl.server.Directives;
 import akka.http.javadsl.server.Route;
 import akka.http.javadsl.unmarshalling.Unmarshaller;
+import com.mandelag.text.JavaTextAnalyzer;
 import com.mandelag.text.TextAnalyzer;
 
 import java.util.Map;
@@ -15,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class WordCountRoutes extends AllDirectives {
 
-  private TextAnalyzer processor = new TextAnalyzer();
+  private TextAnalyzer analyzer = new JavaTextAnalyzer();
 
   public Route getRoute() {
     return Directives.anyOf(Directives::get, Directives::post, () -> concat(
@@ -28,7 +29,7 @@ public class WordCountRoutes extends AllDirectives {
   public Route wordCount() {
     Unmarshaller<HttpEntity, String> unmarshaller = Unmarshaller.entityToString();
     return entity(unmarshaller, entity ->
-        Directives.onSuccess(CompletableFuture.supplyAsync(() -> processor.countWords(entity)),
+        Directives.onSuccess(CompletableFuture.supplyAsync(() -> analyzer.countWords(entity)),
             extracted -> complete(StatusCodes.MULTI_STATUS, extracted, Jackson.<Map>marshaller())));
   }
 }
